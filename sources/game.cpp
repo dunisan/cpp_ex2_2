@@ -68,7 +68,7 @@ void Game::print_deck(const vector<Card>& deck) {
 }
 
 Card Game::pop_top_of_deck(vector<Card>& deck){
-   
+
     Card top = deck.front();
     deck.erase(deck.begin());
     return top; 
@@ -146,6 +146,8 @@ void Game::playTurn(int i){
         this->draws++; 
         pop_top_of_deck(player_1_deck); 
         player1.reduceStackSize();
+        pop_top_of_deck(player_2_deck); 
+        player2.reduceStackSize();
 
         if(player1.stacksize()==0){
             game_is_on = false; 
@@ -153,10 +155,11 @@ void Game::playTurn(int i){
             player1.setCardesTaken(i+1);
             player2.setCardesTaken(i+1);
 
+            return; 
+
         }
 
-        pop_top_of_deck(player_2_deck); 
-        player2.reduceStackSize();
+        
 
         i+=2; 
         loggerUpdate(player1card, player2card , 0);
@@ -194,9 +197,8 @@ void Game::printLastTurn()
 
 void Game::playAll()
 {
-    while(game_is_on){
+     while (player1.stacksize() > 0)
         playTurn();
-    }
 }
 
 void Game::printWiner(){
@@ -235,10 +237,9 @@ void Game ::printStats()
     cout << "draws:  "  << this->draws << endl; 
     cout << "--------------------------------------------------" << endl; 
     cout << "cards taken:" << endl << player1.getName() << ":   " << player1.cardesTaken()
-         << endl << player2.getName() << ":  " << player2.cardesTaken() << endl;
+         << endl << player2.getName() << ":  " << player2.cardesTaken() << endl; 
     cout << "==================================================" << endl; 
 
 }
-
 
 

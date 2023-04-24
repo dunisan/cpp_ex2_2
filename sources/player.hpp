@@ -25,8 +25,6 @@ namespace ariel{
 
         public: 
 
-            // constructors 
-            // Constructor 
             Player(const string& name): _name(name), stack_size(0), cardes_taken
             (0), is_playing(false){}
 
